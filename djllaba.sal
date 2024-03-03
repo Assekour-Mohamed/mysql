@@ -1,0 +1,69 @@
+
+create database djjlaba;
+use djjlaba; 
+
+create table emp (
+    nume int primary key,
+    nome varchar(50),
+    fonction varchar(50),
+    nums int,
+    embauche date,
+    salaire decimal(10, 2),
+    comm decimal(10, 2),
+    numd int
+);
+
+create table dept (
+    numd int primary key,
+    nomd varchar(50),
+    lieu varchar(50)
+);
+
+
+insert into dept 
+values 
+    (1, 'Développement', 'Azli'),
+    (2, 'Marketing', 'Rabat'),
+    (3, 'Finance', 'Casablanca');
+
+insert into emp  
+values 
+    (1, 'Kbbour', 'Manager', 101, '2020-01-15', 5000.00, 200.00, 1),
+    (2, 'Tahiri', 'Développeur', 102, '2020-09-01', 4000.00, 150.00, 1),
+    (3, 'El Mernissi', 'Marketer', 103, '2021-03-20', 4500.00, NULL, 2),
+    (4, 'Zouhair', '  financier', 104, '2020-05-10', 4800.00, 300.00, 3);
+
+ 1.  
+select *
+from emp
+where comm is not null
+order by comm desc;
+
+2.  
+select nome
+from emp
+where embauche >= '2020-09-01';
+
+3.  
+select *
+from emp
+where numd in (select numd from dept where lieu = 'Azli');
+
+4. 
+select *
+from emp
+where nume != 1 and numd = (select numd from emp where nume = 1);
+
+5.  
+select avg(salaire) as moyenne_des_salaires
+from emp;
+
+6. 
+select count(*) as nombre_de_commissions_non_NULL
+from emp
+where comm is not null;
+
+7.  
+select *
+from emp
+where salaire > (select avg(salaire) from emp);
